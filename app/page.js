@@ -2,7 +2,9 @@ import ImageBanner from "@/components/ImageBanner";
 import Products from "@/components/Products";
 
 export async function getProducts() {
-  const baseURL = process.env.NEXT_PUBLIC_BASE_URL || '';
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+  if (!baseURL) return [];
+
   try {
     const response = await fetch(baseURL + '/api/products');
     if (!response.ok) throw new Error('Bad response');
@@ -14,7 +16,7 @@ export async function getProducts() {
 }
 
 export default async function Home() {
-  const products = await getProducts();  // make sure this line is present and correct
+  const products = await getProducts();  // <--- This must be present
 
   let planner = null;
   let stickers = [];
