@@ -17,7 +17,6 @@ export default function Products(props) {
 
     return (
         <>
-            {products.length === 0 && <p>No products available</p>}
             {portalImage && (
                 <Portal handleClosePortal={() => {setPortalImage(null)}}>
                     <div className="portal-content">
