@@ -3,20 +3,23 @@ import Products from "@/components/Products";
 
 export async function getProducts() {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-  let products = [];
+
+  if (!baseURL) {
+    console.error('NEXT_PUBLIC_BASE_URL is not defined');
+    return []; // avoid crash
+  }
 
   try {
     const response = await fetch(baseURL + '/api/products');
     if (!response.ok) throw new Error('Bad response');
-    products = await response.json();
+    const products = await response.json();
+    return products;
   } catch (err) {
     console.error('Error fetching products:', err.message);
-    // Return an empty array to avoid breaking the build
-    products = [];
+    return [];
   }
-
-  return products;
 }
+
 
 
 export default async function Home() {
