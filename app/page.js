@@ -1,40 +1,51 @@
 import ImageBanner from "@/components/ImageBanner";
 import Products from "@/components/Products";
 
+export const dynamic = 'force-dynamic';
+
 export async function getProducts() {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-  if (!baseURL) return [];
+
+  if (!baseURL) {
+    console.error('NEXT_PUBLIC_BASE_URL is not defined');
+    return []; // avoid crash
+  }
 
   try {
     const response = await fetch(baseURL + '/api/products');
     if (!response.ok) throw new Error('Bad response');
-    return await response.json();
+    const products = await response.json();
+    return products;
   } catch (err) {
     console.error('Error fetching products:', err.message);
     return [];
   }
 }
 
+
+
 export default async function Home() {
-  const products = await getProducts();  // <--- This must be present
 
-  let planner = null;
-  let stickers = [];
+  const products = await getProducts()
 
+  let planner = null
+  let stickers = []
+  
   for (let product of products) {
     if (product.name === "Medieval Dragon Month Planner") {
-      planner = product;
-      continue;
+      planner = product
+      continue
     }
-    stickers.push(product);
+    stickers.push(product)
   }
 
   return (
     <>
-      <ImageBanner />
+      <ImageBanner/>
       <section>
-        <Products planner={planner} stickers={stickers} />
+        <Products planner={planner} stickers={stickers}/>
       </section>
+
     </>
   );
 }
