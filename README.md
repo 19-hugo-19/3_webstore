@@ -1,3 +1,4 @@
+Note: This project was done for learning purposes. Original idea: [Smoljames Udemy course](https://www.udemy.com/course/full-stack-course-by-smoljames/)
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
